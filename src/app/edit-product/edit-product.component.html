@@ -1,0 +1,25 @@
+<div class="container">
+    <form (submit)="editProduct(productForm)" #productForm="ngForm">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input [ngModel]="product?.name" name="name" type="text" class="form-control" id="name" #name="ngModel" required>
+        </div>
+        <div class="alert alert-danger" *ngIf="name.invalid && name.touched">Please enter a product name.</div>
+        <div class="form-group">
+          <label for="price">Price</label>
+          <div class="input-group">
+            <span class="input-group-text">$</span>
+            <input [ngModel]="product?.price" name="price" type="text" class="form-control" id="price" #price="ngModel" required>
+          </div>
+        </div>
+        <div class="alert alert-danger" *ngIf="price.invalid && price.touched">Please enter a product price.</div>
+        <div class="form-group">
+          <label for="imageUrl">Image URL</label>
+            <input [ngModel]="product?.imageUrl" name="imageUrl" type="text" class="form-control" id="imageUrl" required #imageUrl='ngModel'>
+        </div>
+        <div class="alert alert-danger" *ngIf="imageUrl.invalid && imageUrl.touched">
+          Please enter an image URL.
+        </div>
+        <button type="submit" [disabled]="productForm.invalid" class="btn btn-secondary">Edit Product</button>
+    </form>
+</div>

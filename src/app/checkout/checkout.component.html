@@ -1,0 +1,63 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 offset-2">
+      <form *ngIf="successMessage === ''" #f="ngForm" (ngSubmit)="save(f)">
+
+        <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input #firstName="ngModel" ngModel name="firstName" type="text" class="form-control" id="firstName" required>
+        </div>
+        <div class="alert alert-danger" *ngIf="firstName.touched && firstName.invalid">
+            First Name is required.
+        </div>
+
+        <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input #lastName="ngModel" ngModel name="lastName" type="text" class="form-control" id="lastName" required>
+        </div>
+        <div class="alert alert-danger" *ngIf="lastName.touched && lastName.invalid">
+            Last Name is required.
+        </div>
+
+        <div class="form-group">
+            <label for="address">Address</label>
+            <input #address="ngModel" ngModel name="address" type="text" class="form-control" id="address" required>
+        </div>
+        <div class="alert alert-danger" *ngIf="address.touched && address.invalid">
+            Address is required.
+        </div>
+
+        <div class="form-group">
+            <label for="city">City</label>
+            <input #city="ngModel" ngModel name="city" type="text" class="form-control" id="city" required>
+        </div>
+        <div class="alert alert-danger" *ngIf="city.touched && city.invalid">
+            City is required.
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input #email="ngModel" ngModel name="email" type="text" class="form-control" id="email" required email>
+        </div>
+        <div class="alert alert-danger" *ngIf="email.touched && email.invalid">
+            <div *ngIf="email.errors?.required">Email is required.</div>
+            <div *ngIf="email.errors?.email">Enter a valid email</div>
+        </div>
+
+        <div class="form-group">
+            <label for="products">Review Your Order: </label>
+            <!--<input type="text" id="products" class="form-control" name="cartItems" [ngModel]="cartItems">-->
+            <textarea class="form-control-plaintext" id="products"
+            name="orderReview" [ngModel]="cartItems" rows="6" readonly>
+            </textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="f.invalid">Purchase</button>
+
+      </form>
+      <p class="alert alert-success" *ngIf="successMessage !== ''">{{ successMessage }}</p>
+    </div>
+  </div>
+
+</div>
+

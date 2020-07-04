@@ -1,0 +1,33 @@
+<div class="container">
+  <table class="table table-bordered" >
+    <thead class="thead-light">
+      <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Sub Total</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr *ngFor="let product of cart">
+        <td>{{ product.productId.name }}</td>
+        <td>{{ product.productId.price | currency:'USD' }}</td>
+        <td>{{ product.quantity }}</td>
+        <td>{{ product.subTotal | currency:'USD' }}</td>
+
+      </tr>
+
+      <tr>
+        <td colspan="2"></td>
+        <td>Total Quantity: {{ totalQuantity }}</td>
+        <td>Total Price: {{ totalPrice | currency:'USD' }}</td>
+      </tr>
+
+    </tbody>
+  </table>
+  <div>
+    <a routerLink="/checkout" class="btn btn-outline-primary">CheckOut</a>
+  </div>
+
+</div>

@@ -1,0 +1,23 @@
+<div class="container">
+  <table class="table table-bordered" >
+      <thead class="thead-light">
+        <tr>
+          <th>Name</th>
+          <th>Price</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody *ngIf="products.length > 0">
+        <tr *ngFor="let product of products">
+          <td>{{ product.name }}</td>
+          <td>{{ product.price | currency:'USD' }}</td>
+          <td><button (click)="deleteProduct(product._id)" class="btn btn-outline-danger btn-sm">Delete Product</button></td>
+          <td><a [routerLink]="['/edit-product', product._id]" class="btn btn-outline-secondary btn-sm">Edit Product</a></td>
+        </tr>
+        <tr>
+      </tbody>
+    </table>
+  <a routerLink="/add-product" class="btn btn-outline-secondary">Add Product</a>
+  <p *ngIf="products.length === 0">No products found!</p>
+</div>

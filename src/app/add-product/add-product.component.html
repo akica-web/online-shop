@@ -1,0 +1,41 @@
+<div class="container">
+    <form (submit)="addProduct(productForm)" #productForm="ngForm">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input  ngModel name="name" type="text" class="form-control" id="name" required #name='ngModel'>
+        </div>
+        <div class="alert alert-danger"
+         *ngIf="name.invalid && name.touched">
+          Please enter a product name.
+        </div>
+        <div class="form-group">
+          <label for="price">Price</label>
+          <div class="input-group">
+            <span class="input-group-text">$</span>
+            <input ngModel name="price" type="text" class="form-control" id="price" required #price='ngModel'>
+          </div>
+        </div>
+        <div class="alert alert-danger" *ngIf="price.invalid && price.touched">
+          Please enter a product price.
+        </div>
+        <div class="form-group">
+          <label for="imageUrl">Image URL</label>
+            <input ngModel name="imageUrl" type="text" class="form-control" id="imageUrl" required #imageUrl='ngModel'>
+        </div>
+        <div class="alert alert-danger" *ngIf="imageUrl.invalid && imageUrl.touched">
+          Please enter an image URL.
+        </div>
+        <div class="form-group">
+          <label for="category">Category</label>
+          <select id="category" class="form-control" name="category" ngModel #category='ngModel' required>
+            <option value="">Choose a category...</option>
+            <option *ngFor="let category of categories" [value]="category._id">{{ category.name }}</option>
+          </select>
+        </div>
+        <div class="alert alert-danger" *ngIf="category.invalid && category.touched">
+          Please select a product category.
+        </div>
+        <button type="submit" [disabled]="productForm.invalid" class="btn btn-secondary">Add Product</button>
+    </form>
+</div>
+

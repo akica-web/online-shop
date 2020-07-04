@@ -1,0 +1,26 @@
+<nav class="navbar navbar-expand navbar-dark bg-dark mb-4 fixed-top py-2">
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/" routerLinkActive="toggle() ? 'text-white': ''">Home</a>
+    </li>
+    <li *ngIf="userIsAuthenticated" class="nav-item">
+      <a class="nav-link" routerLink="/manage-products" routerLinkActive="toggle() ? 'text-white' : ''">Manage Products</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/cart" routerLinkActive="toggle() ? 'text-white' : ''"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Shopping Cart</a>
+    </li>
+
+
+  </ul>
+  <ul class="navbar-nav ml-auto">
+    <li *ngIf="!userIsAuthenticated" class="nav-item">
+      <a class="nav-link" routerLink="/login" routerLinkActive="toggle() ? 'text-white' : ''">Login</a>
+    </li>
+    <li *ngIf="!userIsAuthenticated" class="nav-item">
+      <a class="nav-link" routerLink="/signup" routerLinkActive="toggle() ? 'text-white' : ''">Signup</a>
+    </li>
+    <li *ngIf="userIsAuthenticated" class="nav-item">
+      <button (click)="onLogout()" class="btn btn-outline-secondary" >Logout</button>
+    </li>
+  </ul>
+</nav>

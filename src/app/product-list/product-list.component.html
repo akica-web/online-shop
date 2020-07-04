@@ -1,0 +1,55 @@
+<!--
+<div class="container">
+    <table class="table table-bordered" >
+        <thead class="thead-light">
+          <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody *ngIf="products.length > 0">
+          <tr *ngFor="let product of products">
+            <td>{{ product.name }}</td>
+            <td>{{ product.price | currency:'USD' }}</td>
+            <td><button (click)="deleteProduct(product._id)" class="btn btn-outline-danger btn-sm">Delete Product</button></td>
+            <td><a [routerLink]="['/edit-product', product._id]" class="btn btn-outline-secondary btn-sm">Edit Product</a></td>
+          </tr>
+          <tr>
+            <td colspan="2"></td>
+            <td>Total quantity: {{ totalQuantity  }}</td>
+            <td>Total price: {{ totalPrice | currency:'USD' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    <a routerLink="/add-product" class="btn btn-outline-secondary">Add Product</a>
+    <p *ngIf="products.length === 0">No products found!</p>
+</div>
+-->
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="category-items">
+        <a routerLink="/" [routerLinkActive]="isActiveAllProducts ? 'bg-primary text-white' : '' ">All Products</a>
+      </div>
+      <div class="category-items" *ngFor="let category of categories">
+        <a [routerLink]="['/products', category._id]" routerLinkActive="bg-primary text-white">{{ category.name }}</a>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="row" *ngIf="products.length > 0">
+          <div *ngFor="let product of products" class="card mt-0 mb-4 mr-4" style="width: 15rem;">
+            <img class="card-img-top" [src]="product.imageUrl" alt="Card image cap">
+            <div class="card-body p-0">
+              <h5 class="card-title text-center mt-3">{{ product.name }}</h5>
+              <p class="card-text text-center">Price: {{ product.price }}</p>
+              <button type="button" (click)="addToCart(product._id)" class="btn btn-primary btn-block">Add To Cart</button>
+            </div>
+          </div>
+      </div>
+      <p *ngIf="products.length === 0">No Products Found.</p>
+    </div>
+  </div>
+</div>
+
