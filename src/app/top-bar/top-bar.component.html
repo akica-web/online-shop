@@ -3,7 +3,7 @@
     <li class="nav-item">
       <a class="nav-link" routerLink="/" routerLinkActive="toggle() ? 'text-white': ''">Home</a>
     </li>
-    <li *ngIf="userIsAuthenticated" class="nav-item">
+    <li *ngIf="userIsAuthenticated && isAdmin" class="nav-item">
       <a class="nav-link" routerLink="/manage-products" routerLinkActive="toggle() ? 'text-white' : ''">Manage Products</a>
     </li>
     <li class="nav-item">

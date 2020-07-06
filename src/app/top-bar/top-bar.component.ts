@@ -12,9 +12,14 @@ export class TopBarComponent implements OnInit, OnDestroy {
 
   isActive: boolean = true;
 
+  isAdmin: boolean = false;
+
+
   userIsAuthenticated: boolean = false;
 
+
   private authListenerSubs: Subscription;
+  private isAdminListenerSubs: Subscription;
 
 
 
@@ -25,6 +30,7 @@ export class TopBarComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.authListenerSubs.unsubscribe();
+    this.isAdminListenerSubs.unsubscribe();
   }
 
 
@@ -38,6 +44,23 @@ export class TopBarComponent implements OnInit, OnDestroy {
     this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
       this.userIsAuthenticated = isAuthenticated;
     });
+    //this.isAdmin = this.authService.getIsAdmin();
+
+        this.isAdminListenerSubs = this.authService.getIsAdminListener().subscribe(isAdmin => {
+          this.isAdmin = isAdmin;
+        });
+
+        const savedIsAdmin = localStorage.getItem('isAdmin');
+
+        if (savedIsAdmin === 'true') {
+          this.isAdmin = true;
+        } else if (savedIsAdmin === 'false') {
+          this.isAdmin = false;
+        }
+
+
+
+
 
 
 

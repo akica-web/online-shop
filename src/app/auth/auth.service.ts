@@ -13,6 +13,8 @@ export class AuthService {
   private authStatusListener = new Subject<boolean>();
   private isAuthenticated: boolean = false;
   private tokenTimer: any;
+  private isAdminListener = new Subject<boolean>();
+  private isAdmin: boolean = false;
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -20,8 +22,16 @@ export class AuthService {
     return this.token;
   }
 
+  getIsAdmin() {
+    return this.isAdmin;
+  }
+
   getAuthStatusListener() {
     return this.authStatusListener.asObservable();
+  }
+
+  getIsAdminListener() {
+    return this.isAdminListener.asObservable();
   }
 
   getIsAuth() {
@@ -33,8 +43,10 @@ export class AuthService {
       email: email,
       password: password
     };
-    this.http.post('http://localhost:3000/signup', authData).subscribe(response => {
+    this.http.post<{ message: string, result: any }>('http://localhost:3000/signup', authData).subscribe(response => {
     console.log(response);
+    //this.isAdminListener.next(response.result.isAdmin);
+    //this.isAdmin = response.result.isAdmin;
     });
   }
 
@@ -43,14 +55,26 @@ export class AuthService {
       email: email,
       password: password
     };
-    this.http.post<{ token: string, expiresIn: number }>('http://localhost:3000/login', authData).subscribe(response => {
+    this.http.post<{ token: string, expiresIn: number, isAdmin: boolean }>('http://localhost:3000/login', authData).subscribe(response => {
+      console.log(response);
       const token = response.token;
       this.token = token;
+
+      /*
+      if (response.isAdmin === true) {
+        this.isAdmin = true;
+      } else {
+        this.isAdmin = false;
+      }
+      */
+
       if (token) {
         const expiresInDuration = response.expiresIn;
         this.setAuthTimer(expiresInDuration);
         this.isAuthenticated = true;
         this.authStatusListener.next(true);
+        this.isAdminListener.next(response.isAdmin);
+        localStorage.setItem('isAdmin', response.isAdmin.toString());
         const now = new Date();
         const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
         this.saveAuthData(token, expirationDate);
@@ -82,6 +106,7 @@ export class AuthService {
     this.authStatusListener.next(false);
     this.router.navigate(['/']);
     this.clearAuthData();
+    localStorage.removeItem('isAdmin');
     clearTimeout(this.tokenTimer);
   }
 
