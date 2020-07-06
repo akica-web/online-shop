@@ -3,6 +3,7 @@ import { Order } from '../order';
 import { CartService } from '../cart.service';
 import { NgForm } from '@angular/forms';
 import { OrderService } from '../order.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-checkout',
@@ -18,7 +19,7 @@ export class CheckoutComponent implements OnInit {
   totalPrice: number = 0;
   successMessage: string = '';
 
-  constructor(private cartService: CartService, private orderService: OrderService) { }
+  constructor(private cartService: CartService, private orderService: OrderService, private router: Router) { }
 
 
 
@@ -43,22 +44,31 @@ export class CheckoutComponent implements OnInit {
   }
 
   save(form: NgForm) {
-    const order: Order = {
-      firstName: form.value.firstName,
-      lastName: form.value.lastName,
-      address: form.value.address,
-      city: form.value.city,
-      email: form.value.email,
-      orderReview: form.value.orderReview
+    let userId = localStorage.getItem('userId');
+    if (!userId) {
+      this.router.navigate(['/login']);
+    } else {
+
+      const order: Order = {
+        firstName: form.value.firstName,
+        lastName: form.value.lastName,
+        address: form.value.address,
+        city: form.value.city,
+        email: form.value.email,
+        orderReview: form.value.orderReview,
+        userId: userId
+      }
+
+      this.orderService.saveOrder(order).subscribe(result => {
+        if (result) {
+          this.successMessage = result.message;
+          localStorage.removeItem('cartId');
+          form.reset();
+        }
+      });
+
     }
 
-    this.orderService.saveOrder(order).subscribe(result => {
-      if (result) {
-        this.successMessage = result.message;
-        localStorage.removeItem('cartId');
-        form.reset();
-      }
-    });
 
   }
 

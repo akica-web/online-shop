@@ -17,6 +17,8 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { LoginComponent } from './auth/login/login.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
+import { MyOrdersComponent } from './my-orders/my-orders.component';
+import { ManageOrdersComponent } from './manage-orders/manage-orders.component';
 
 
 
@@ -32,7 +34,9 @@ import { AuthInterceptor } from './auth/auth-interceptor';
     CartComponent,
     CheckoutComponent,
     SignupComponent,
-    LoginComponent
+    LoginComponent,
+    MyOrdersComponent,
+    ManageOrdersComponent
   ],
   imports: [
     BrowserModule,

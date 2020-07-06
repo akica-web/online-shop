@@ -55,7 +55,7 @@ export class AuthService {
       email: email,
       password: password
     };
-    this.http.post<{ token: string, expiresIn: number, isAdmin: boolean }>('http://localhost:3000/login', authData).subscribe(response => {
+    this.http.post<{ token: string, expiresIn: number, isAdmin: boolean, userId: string }>('http://localhost:3000/login', authData).subscribe(response => {
       console.log(response);
       const token = response.token;
       this.token = token;
@@ -75,6 +75,7 @@ export class AuthService {
         this.authStatusListener.next(true);
         this.isAdminListener.next(response.isAdmin);
         localStorage.setItem('isAdmin', response.isAdmin.toString());
+        localStorage.setItem('userId', response.userId);
         const now = new Date();
         const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
         this.saveAuthData(token, expirationDate);
@@ -107,6 +108,7 @@ export class AuthService {
     this.router.navigate(['/']);
     this.clearAuthData();
     localStorage.removeItem('isAdmin');
+    localStorage.removeItem('userId');
     clearTimeout(this.tokenTimer);
   }
 

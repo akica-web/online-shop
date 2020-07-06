@@ -1,0 +1,23 @@
+<div class="container">
+  <h1>Your Orders:</h1>
+  <table class="table table-bordered">
+    <thead class="thead-light">
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Address</th>
+      <th>City</th>
+      <th>Email</th>
+      <th>Ordered</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of orders">
+        <td>{{ order.firstName }}</td>
+        <td>{{ order.lastName }}</td>
+        <td>{{ order.address }}</td>
+        <td>{{ order.city }}</td>
+        <td>{{ order.email }}</td>
+        <td>{{ order.orderReview }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
-const user = require('../models/user');
+
 
 const router = express.Router();
 
@@ -45,7 +45,7 @@ router.post('/login', (req, res, next) => {
     let buff = new Buffer(payload, 'base64');
     let decodedPayload = JSON.parse(buff);
     //console.log(decodedPayload);
-    res.status(200).json({ token: token, expiresIn: 3600, isAdmin: fetchedUser.isAdmin });
+    res.status(200).json({ token: token, expiresIn: 3600, isAdmin: fetchedUser.isAdmin, userId: fetchedUser._id });
   })
   .catch(err => {
     return res.status(401).json({ message: 'Auth Failed!' });
@@ -53,3 +53,5 @@ router.post('/login', (req, res, next) => {
 });
 
 module.exports = router;
+
+

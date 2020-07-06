@@ -12,4 +12,13 @@ export class OrderService {
   saveOrder(order: Order) {
     return this.http.post<{ message: string }>('http://localhost:3000/check-out', order);
   }
+
+  getOrders(userId: string) {
+    return this.http.get<{ result: any }>('http://localhost:3000/orders/' + userId);
+  }
+
+  getAllOrders() {
+    return this.http.get<{ result: any }>('http://localhost:3000/all-orders');
+  }
+
 }

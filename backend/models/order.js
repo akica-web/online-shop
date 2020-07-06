@@ -6,7 +6,8 @@ const orderSchema = mongoose.Schema({
     address: { type: String, required: true },
     city: { type: String, required: true },
     email: { type: String, required: true },
-    orderReview: { type: String, required: true }
+    orderReview: { type: String, required: true },
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }
 });
 
 module.exports = mongoose.model('Order', orderSchema);
