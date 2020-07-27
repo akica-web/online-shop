@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-8 offset-2">
+    <div class="col-md-8 offset-2 mx-auto">
       <form *ngIf="successMessage === ''" #f="ngForm" (ngSubmit)="save(f)">
 
         <div class="form-group">
@@ -52,7 +52,7 @@
             </textarea>
         </div>
 
-        <button type="submit" class="btn btn-primary" [disabled]="f.invalid">Purchase</button>
+        <button type="submit" class="btn btn-primary mb-3 btn-lg" [disabled]="f.invalid">Purchase</button>
 
       </form>
       <p class="alert alert-success" *ngIf="successMessage !== ''">{{ successMessage }}</p>

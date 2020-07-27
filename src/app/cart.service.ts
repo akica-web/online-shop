@@ -31,6 +31,14 @@ currentTotalPrice = this.totalPrice.asObservable();
     });
   }
 
+  deleteCartItem(product: Product, cartId: string) {
+    return this.http.post('http://localhost:3000/delete-cart', { product: product, cartId: cartId });
+  }
+
+  removeCartItem(product: Product, cartId: string) {
+    return this.http.post('http://localhost:3000/delete-cart-product', { product: product, cartId: cartId});
+  }
+
 
 
 

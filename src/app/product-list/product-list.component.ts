@@ -87,7 +87,6 @@ totalQuantity: number;
         this.cartService.createCart(this.product, cartId).subscribe(result => {
 
         });
-        //this.cartService.getQtyAndPrice(cartId);
       });
 
       //

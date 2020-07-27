@@ -12,8 +12,10 @@ export class CartComponent implements OnInit {
 
   cart: any;
   totalPrice: number;
-  totalQuantity: any;
+  totalQuantity: number;
   product: Product;
+
+  subTotal: number;
 
 
   constructor(private cartService: CartService, private productService: ProductServiceService) { }
@@ -45,6 +47,65 @@ export class CartComponent implements OnInit {
 
       //this.cartService.getQtyAndPrice(cartId);
 
+    }
+  }
+
+  addProduct(productId: string) {
+    let cartId = localStorage.getItem('cartId');
+    if (!cartId) {
+      return;
+    } else {
+      this.productService.getProduct(productId).subscribe(result => {
+        this.product = result;
+        this.cartService.createCart(this.product, cartId).subscribe(result => {
+          this.cartService.getCart(cartId).subscribe(cart => {
+            this.cart = cart.items;
+            this.totalPrice = cart.totalPrice;
+            this.totalQuantity = cart.totalQuantity;
+          })
+
+        });
+      });
+    }
+
+  }
+
+  deleteProduct(productId: string) {
+    let cartId = localStorage.getItem('cartId');
+    if (!cartId) {
+      return;
+    } else {
+      this.productService.getProduct(productId).subscribe(result => {
+        this.product = result;
+        this.cartService.deleteCartItem(this.product, cartId).subscribe((result) => {
+          console.log(result);
+          this.cartService.getCart(cartId).subscribe(cart => {
+            this.cart = cart.items;
+            this.totalPrice = cart.totalPrice;
+            this.totalQuantity = cart.totalQuantity;
+          })
+        })
+      })
+
+
+    }
+  }
+
+  removeProduct(productId: string) {
+    let cartId = localStorage.getItem('cartId');
+    if(!cartId) {
+      return;
+    } else {
+      this.productService.getProduct(productId).subscribe(result => {
+        this.product = result;
+        this.cartService.removeCartItem(this.product, cartId).subscribe(cart => {
+          this.cartService.getCart(cartId).subscribe(cart => {
+            this.cart = cart.items;
+            this.totalPrice = cart.totalPrice;
+            this.totalQuantity = cart.totalQuantity;
+          })
+        });
+      })
     }
   }
 

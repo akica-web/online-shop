@@ -1,33 +1,50 @@
 <div class="container">
-  <table class="table table-bordered" >
-    <thead class="thead-light">
-      <tr>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Quantity</th>
-        <th>Sub Total</th>
-      </tr>
-    </thead>
-    <tbody>
+    <div class="table-responsive-md">
+    <table class="table table-bordered" >
 
-      <tr *ngFor="let product of cart">
-        <td>{{ product.productId.name }}</td>
-        <td>{{ product.productId.price | currency:'USD' }}</td>
-        <td>{{ product.quantity }}</td>
-        <td>{{ product.subTotal | currency:'USD' }}</td>
+        <thead class="thead-light" style="font-size: 11px">
+        <tr class="d-flex">
+          <th class="col-2 d-flex justify-content-center align-items-center">Image</th>
+          <th class="col-2 d-flex justify-content-center align-items-center">Name</th>
+          <th class="col-2 d-flex justify-content-center align-items-center">Price</th>
+          <th class="col-1 d-flex justify-content-center align-items-center">Qty</th>
+          <th class="col-1 d-flex justify-content-center align-items-center">Sub Total</th>
+          <th class="col-1 d-flex justify-content-center align-items-center">Add</th>
+          <th class="col-1 d-flex justify-content-center align-items-center">Reduce</th>
+          <th class="col-2 d-flex justify-content-center align-items-center">Remove</th>
+        </tr>
+      </thead>
 
-      </tr>
 
-      <tr>
-        <td colspan="2"></td>
-        <td>Total Quantity: {{ totalQuantity }}</td>
-        <td>Total Price: {{ totalPrice | currency:'USD' }}</td>
-      </tr>
+      <tbody>
 
-    </tbody>
-  </table>
-  <div>
-    <a routerLink="/checkout" class="btn btn-outline-primary">CheckOut</a>
+        <tr *ngFor="let product of cart" class="d-flex" class="d-flex">
+          <td class="col-2 d-flex justify-content-center align-items-center"><img style="display: block; width: 100%; height: auto; border-radius: 2px;" [src]="product.productId.imageUrl" alt="Image of a product."></td>
+          <td class="col-2 d-flex justify-content-center align-items-center">{{ product.productId.name }}</td>
+          <td class="col-2 d-flex justify-content-center align-items-center">{{ product.productId.price | currency:'USD' }}</td>
+          <td class="col-1 d-flex justify-content-center align-items-center">{{ product.quantity }}</td>
+          <td class="col-1 d-flex justify-content-center align-items-center">{{ product.subTotal | currency:'USD' }}</td>
+          <td class="col-1 d-flex justify-content-center align-items-center"><button (click)="addProduct(product.productId._id)" class="btn btn-outline-primary btn-sm">+</button></td>
+          <td class="col-1 d-flex justify-content-center align-items-center"><button (click)="deleteProduct(product.productId._id)" class="btn btn-outline-primary btn-sm">-</button></td>
+          <td class="col-2 d-flex justify-content-center align-items-center"><button (click)="removeProduct(product.productId._id)" class="btn btn-outline-danger btn-sm">Remove</button></td>
+        </tr>
+
+        <tr class="d-flex">
+          <td class="col-8 d-flex justify-content-center align-items-center"></td>
+          <td class="col-2 d-flex justify-content-center align-items-center">Total Quantity: {{ totalQuantity }}</td>
+          <td class="col-2 d-flex justify-content-center align-items-center">Total Price: {{ totalPrice | currency:'USD' }}</td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+    <div style="float: right;">
+      <a routerLink="/checkout" class="btn btn-outline-primary">CheckOut</a>
+    </div>
   </div>
 
-</div>
+
+
+
+
+

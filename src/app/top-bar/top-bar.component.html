@@ -6,12 +6,17 @@
     <li *ngIf="userIsAuthenticated && isAdmin" class="nav-item">
       <a class="nav-link" routerLink="/manage-products" routerLinkActive="toggle() ? 'text-white' : ''">Manage Products</a>
     </li>
+    <li *ngIf="userIsAuthenticated && isAdmin" class="nav-item">
+      <a class="nav-link" routerLink="/manage-orders" routerLinkActive="toggle() ? 'text-white' : ''">Manage Orders</a>
+    </li>
     <li class="nav-item">
       <a class="nav-link" routerLink="/cart" routerLinkActive="toggle() ? 'text-white' : ''"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Shopping Cart</a>
     </li>
-
-
+    <li *ngIf="userIsAuthenticated" class="nav-item">
+      <a class="nav-link" routerLink="/my-orders" routerLinkActive="toggle() ? 'text-white' : ''">My Orders</a>
+    </li>
   </ul>
+
   <ul class="navbar-nav ml-auto">
     <li *ngIf="!userIsAuthenticated" class="nav-item">
       <a class="nav-link" routerLink="/login" routerLinkActive="toggle() ? 'text-white' : ''">Login</a>

@@ -45,8 +45,9 @@ export class AuthService {
     };
     this.http.post<{ message: string, result: any }>('http://localhost:3000/signup', authData).subscribe(response => {
     console.log(response);
-    //this.isAdminListener.next(response.result.isAdmin);
-    //this.isAdmin = response.result.isAdmin;
+
+    }, error => {
+      console.log(error);
     });
   }
 

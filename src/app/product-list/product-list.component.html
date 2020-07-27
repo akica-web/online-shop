@@ -30,23 +30,32 @@
 <div class="container">
   <div class="row">
     <div class="col-md-4">
-      <div class="category-items">
-        <a routerLink="/" [routerLinkActive]="isActiveAllProducts ? 'bg-primary text-white' : '' ">All Products</a>
+      <div class="sticky-top">
+        <div class="category-items mx-auto mt-2">
+          <a routerLink="/" [routerLinkActive]="isActiveAllProducts ? 'bg-primary text-white' : '' ">All Products</a>
+        </div>
+        <div class="category-items m-auto mt-2" *ngFor="let category of categories">
+          <a [routerLink]="['/products', category._id]" routerLinkActive="bg-primary text-white">{{ category.name }}</a>
+        </div>
       </div>
-      <div class="category-items" *ngFor="let category of categories">
-        <a [routerLink]="['/products', category._id]" routerLinkActive="bg-primary text-white">{{ category.name }}</a>
-      </div>
+
     </div>
     <div class="col-md-8">
       <div class="row" *ngIf="products.length > 0">
-          <div *ngFor="let product of products" class="card mt-0 mb-4 mr-4" style="width: 15rem;">
-            <img class="card-img-top" [src]="product.imageUrl" alt="Card image cap">
-            <div class="card-body p-0">
-              <h5 class="card-title text-center mt-3">{{ product.name }}</h5>
-              <p class="card-text text-center">Price: {{ product.price }}</p>
-              <button type="button" (click)="addToCart(product._id)" class="btn btn-primary btn-block">Add To Cart</button>
+        <ng-container *ngFor="let product of products; let i = index">
+          <div class="col">
+            <div class="card my-2 mx-0" style="width: 14rem;">
+              <img class="card-img-top" [src]="product.imageUrl" alt="Card image cap">
+              <div class="card-body p-0">
+                <h5 class="card-title text-center mt-3">{{ product.name }}</h5>
+                <p class="card-text text-center">Price: {{ product.price | currency:'USD' }}</p>
+                <button type="button" (click)="addToCart(product._id)" class="btn btn-primary btn-block">Add To Cart</button>
+              </div>
             </div>
           </div>
+          <div *ngIf="(i + 1) % 2 === 0" class="w-100"></div>
+        </ng-container>
+
       </div>
       <p *ngIf="products.length === 0">No Products Found.</p>
     </div>
